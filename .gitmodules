@@ -1,0 +1,6 @@
+[submodule "babble-backend"]
+	path = babble-backend
+	url = https://github.com/sharankarthikyan/babble-backend.git
+[submodule "babble-frontend"]
+	path = babble-frontend
+	url = https://github.com/sharankarthikyan/babble-frontend.git
