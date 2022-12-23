@@ -12,16 +12,16 @@ services:
       - private
 
   # Backend - Express service
-  discord-backend:
+  babble-backend:
     build:
-      context: ./discord-backend
+      context: ./babble-backend
       dockerfile: Dockerfile
-    container_name: discord-backend
+    container_name: babble-backend
     ports:
       - "8080:8080"
     volumes:
-      - ./discord-backend:/app/discord-backend
-      - /app/discord-backend/node_modules
+      - ./babble-backend:/app/babble-backend
+      - /app/babble-backend/node_modules
     env_file:
       - ./env/backend.env
     depends_on:
@@ -30,16 +30,16 @@ services:
       - private
 
   # React - Frontend service
-  discord-frontend:
+  babble-frontend:
     build:
-      context: ./discord-frontend
+      context: ./babble-frontend
       dockerfile: Dockerfile
-    container_name: discord-frontend
+    container_name: babble-frontend
     ports:
       - "3000:3000"
     volumes:
-      - ./discord-frontend:/app/discord-frontend
-      - /app/discord-frontend/node_modules
+      - ./babble-frontend:/app/babble-frontend
+      - /app/babble-frontend/node_modules
     networks:
       - private
 
