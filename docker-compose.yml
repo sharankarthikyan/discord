@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  # MongoDB service
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - data:/data/db
+    env_file:
+      - ./env/mongodb.env
+    networks:
+      - private
+
+  # Backend - Express service
+  discord-backend:
+    build:
+      context: ./discord-backend
+      dockerfile: Dockerfile
+    container_name: discord-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./discord-backend:/app/discord-backend
+      - /app/discord-backend/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+    networks:
+      - private
+
+  # React - Frontend service
+  discord-frontend:
+    build:
+      context: ./discord-frontend
+      dockerfile: Dockerfile
+    container_name: discord-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./discord-frontend:/app/discord-frontend
+      - /app/discord-frontend/node_modules
+    networks:
+      - private
+
+networks:
+  private:
+    driver: bridge
+
+# we are specifying explicitly to docker compose, that this is an named volume.
+volumes:
+  data:
